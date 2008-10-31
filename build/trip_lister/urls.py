@@ -3,7 +3,7 @@ from django.conf.urls.defaults import *
 
 urlpatterns = patterns('',
     # Trip URLs
-    (r'^$', include('trips.urls')),
+    (r'^', include('trips.urls')),
     
     # Login
     url(r'^login/$', 'django.contrib.auth.views.login', name='user_login'),

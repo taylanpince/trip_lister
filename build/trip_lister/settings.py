@@ -46,11 +46,13 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     
     'django_evolution',
-    'django_command_extensions',
+    'django_extensions',
     
-    
+    'trips',
 )
 
+LOGIN_URL = '/login/'
+LOGOUT_URL = '/logout/'
 LOGIN_REDIRECT_URL = '/'
 
 try:

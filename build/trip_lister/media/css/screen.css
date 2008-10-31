@@ -8,7 +8,22 @@
 /* @group Global */
 
 body {
+    font: 14px Helvetica, Arial, sans-serif;
+    color: #000;
+    background-color: #333;
+}
 
+/* @end */
+
+
+/* @group Layout */
+
+#Container {
+    width: 600px;
+    margin: 20px auto 20px auto;
+    padding: 20px;
+    background-color: #FFF;
+    border: 3px solid #CCC;
 }
 
 /* @end */
@@ -22,7 +37,14 @@ h3,
 h4,
 h5,
 h6 {
-	
+	font-family : Georgia, "Times New Roman", serif;
+}
+
+h1 {
+    font-size: 42px;
+    margin: 0px 0px 15px 0px;
+    padding: 0px 0px 10px 0px;
+    border-bottom: 3px solid #CCC;
 }
 
 /* @end */
@@ -31,7 +53,7 @@ h6 {
 /* @group Text */
 
 p {
-	
+	margin: 0px 0px 10px 0px;
 }
 
 blockquote {

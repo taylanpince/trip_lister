@@ -6,7 +6,7 @@
     
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 
-	<title>{% block title %}{% endblock %}</title>
+	<title>Trip Lister - {% block title %}{% endblock %}</title>
 	
 	<link rel="shortcut icon" href="{{ MEDIA_URL }}images/favicon.ico" />
 	
@@ -21,17 +21,11 @@
 	
 	{% block css %}{% endblock %}
 	
-	<!--[if lt IE 7]>
-	    <style type="text/css" media="all">
-	        @import url("{{ MEDIA_URL }}css/ie.css");
-	    </style>
-	<![endif]-->
-	
     <script type="text/javascript" src="{{ MEDIA_URL }}js/jquery.js"></script>
+    <script type="text/javascript" src="{{ MEDIA_URL }}js/jquery.namespace.js"></script>
+    <script type="text/javascript" src="{{ MEDIA_URL }}js/trips.js"></script>
     
 	{% block javascript %}{% endblock %}
-	
-	{% block syndication %}{% endblock %}
 	
 </head>
 
@@ -39,13 +33,9 @@
 
 <div id="Container">
 
-    <div id="Content">
-        
-        {% block content %}
-        
-        {% endblock %}
-        
-    </div>
+    <h1>{% block header %}{% endblock %}</h1>
+    
+    {% block content %}{% endblock %}
     
 </div>
 

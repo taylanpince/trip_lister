@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block title %}Trips{% endblock %}
+
+{% block header %}Trips{% endblock %}
+
+{% block content %}
+
+<p><strong>Start Date:</strong> {{ start_date }}</p>
+<p><strong>End Date:</strong> {{ end_date }}</p>
+<p><strong>Lost Days:</strong> {{ lost_days }}</p>
+
+{% for trip in trips %}
+<p>{{ trip }}</p>
+{% endfor %}
+
+<form id="TripForm" method="post" action="{% url trips_create %}">
+    <ul>
+        {{ form.as_ul }}
+        <li><input type="submit" value="Create" /></li>
+    </ul>
+</form>
+
+{% endblock %}
