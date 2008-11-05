@@ -1,4 +1,3 @@
 {
-    "success": {{ success|lower }},
-    "errors": '{{ form.errors }}'
+    "errors": {{ errors|safe }}
 }

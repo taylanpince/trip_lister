@@ -36,7 +36,6 @@ $.extend($.namespace("core.Trips"), {
 	            dataType : "json",
 	            contentType : "application/json",
 	            success : function(data) {
-	                console.log(data.success);
 	                console.log(data.errors);
 	            }
 	        });

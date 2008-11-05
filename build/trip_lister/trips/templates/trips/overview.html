@@ -10,9 +10,28 @@
 <p><strong>End Date:</strong> {{ end_date }}</p>
 <p><strong>Lost Days:</strong> {{ lost_days }}</p>
 
-{% for trip in trips %}
-<p>{{ trip }}</p>
-{% endfor %}
+<table>
+    <thead>
+        <tr>
+            <td>Name</td>
+            <td>Start Date</td>
+            <td>End Date</td>
+            <td>Total Days</td>
+        </tr>
+    </thead>
+    <tbody>
+        {% for trip in trips %}
+        <tr>
+            <td>{{ trip.title }}</td>
+            <td>{{ trip.start_date }}</td>
+            <td>{{ trip.end_date }}</td>
+            <td>{{ trip.total_days }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<h2>Add A Trip</h2>
 
 <form id="TripForm" method="post" action="{% url trips_create %}">
     <ul>
