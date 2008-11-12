@@ -9,44 +9,82 @@
 
 $.extend($.namespace("core.Trips"), {
     
-    init_markers : function() {
-		$("html").addClass("has-js");
-		
-		$("li:last-child").addClass("last-child");
-		$("li:first-child").addClass("first-child");
+    error_template : '<p class="error">%(error)</p>',
+    trip_table_template : '<tr><td>%(title)</td><td>%(start_date)</td><td>%(end_date)</td><td>%(total_days)</td></tr>',
+    
+    render_trips : function(data) {
+        $("#StartDate").text(data.start_date);
+        $("#EndDate").text(data.end_date);
+        $("#LostDays").text(data.lost_days);
         
-		$("input[@type=text]").addClass("text");
-		$("input[@type=submit], input[@type=button]").addClass("submit");
-		$("input[@type=password]").addClass("text");
-		$("input[@type=file]").addClass("file");
-		$("input[@type=radio]").addClass("radio");
-		$("input[@type=checkbox]").addClass("checkbox");
-		$("input[@type=image]").addClass("image");
+        $("#TripsTable > tbody").find("tr").remove();
         
-		$("hr").wrap('<div class="hr"></div>');
+        for (t in data.trips) {
+            $("#TripsTable > tbody").append(core.render_template(this.trip_table_template, data.trips[t]));
+        }
+        
+        $("#UpdateButton").attr("disabled", false);
+    },
+	
+	update_trips : function() {
+        $("#UpdateButton").attr("disabled", true);
+        
+	    $.ajax({
+	        url : location.href,
+            type : "get",
+            processData : false,
+            dataType : "json",
+            contentType : "application/json",
+            success : this.render_trips.bind(this)
+	    });
 	},
 	
-	init_create_form : function() {
-	    $("#TripForm").submit(function() {
-	        $.ajax({
-	            url : $(this).attr("action"),
-	            type : "post",
-	            processData : false,
-	            data : $(this).serialize(),
-	            dataType : "json",
-	            contentType : "application/json",
-	            success : function(data) {
-	                console.log(data.errors);
+	parse_create_form : function(data) {
+	    if (data.errors) {
+	        for (error in data.errors) {
+	            if (error == "__all__") {
+	                for (e in data.errors[error]) {
+        	            $("#TripForm").prepend(core.render_template(this.error_template, {
+        	                "error" : data.errors[error][e]
+        	            }));
+	                }
+	            } else {
+    	            $("#TripForm-" + error).parent().prepend(core.render_template(this.error_template, {
+    	                "error" : data.errors[error]
+    	            }));
 	            }
-	        });
+	        }
+	    } else {
+	        $("#TripForm")[0].reset();
 	        
-	        return false;
-	    });
+	        this.update_trips();
+	    }
+	    
+	    $("#TripForm").find("input[@type=submit]").attr("disabled", false);
+	},
+	
+	submit_create_form : function() {
+	    $("#TripForm").find("p.error").remove();
+	    $("#TripForm").find("input[@type=submit]").attr("disabled", true);
+	    
+        $.ajax({
+            url : $("#TripForm").attr("action"),
+            type : "post",
+            processData : false,
+            data : $("#TripForm").serialize(),
+            dataType : "json",
+            contentType : "application/json",
+            success : this.parse_create_form.bind(this)
+        });
+        
+        return false;
 	},
     
     init : function() {
-        this.init_markers();
-        this.init_create_form();
+        core.init_markers();
+        
+        $("#TripForm").submit(this.submit_create_form.bind(this));
+        $("#UpdateButton").click(this.update_trips.bind(this));
     }
     
 });

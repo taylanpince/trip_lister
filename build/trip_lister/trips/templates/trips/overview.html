@@ -6,11 +6,16 @@
 
 {% block content %}
 
-<p><strong>Start Date:</strong> {{ start_date }}</p>
-<p><strong>End Date:</strong> {{ end_date }}</p>
-<p><strong>Lost Days:</strong> {{ lost_days }}</p>
+<dl id="TripStats">
+    <dt>Start Date:</dt>
+    <dd id="StartDate">{{ start_date }}</dd>
+    <dt>End Date:</dt>
+    <dd id="EndDate">{{ end_date }}</dd>
+    <dt>Lost Days:</dt>
+    <dd id="LostDays">{{ lost_days }}</dd>
+</dl>
 
-<table>
+<table id="TripsTable">
     <thead>
         <tr>
             <td>Name</td>
@@ -30,6 +35,8 @@
         {% endfor %}
     </tbody>
 </table>
+
+<input type="button" id="UpdateButton" value="Update" />
 
 <h2>Add A Trip</h2>
 

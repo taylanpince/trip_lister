@@ -1,10 +1,10 @@
-from django.forms import ModelForm
+from django import forms
 from django.utils.translation import ugettext_lazy as _
 
 from trips.models import Trip
 
 
-class TripForm(ModelForm):
+class TripForm(forms.ModelForm):
     """
     A form for creating a new trip
     """
